@@ -1,0 +1,657 @@
+<html lang="vi"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1d4ed8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="KST–Vi nấm">
+
+
+<title>Ôn thi Ký sinh trùng & Vi nấm (Thầy Thạnh)</title>
+<style>
+:root{
+  --blue:#1d4ed8;--blue-600:#2563eb;--blue-50:#eff6ff;--blue-100:#dbeafe;--blue-200:#bfdbfe;
+  --ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--bg:#f5f8ff;--card:#fff;
+  --ok:#059669;--ok-bg:#ecfdf5;--bad:#dc2626;--bad-bg:#fef2f2;--warn:#b45309;--warn-bg:#fffbeb;
+  --r:14px;--shadow:0 1px 2px rgba(15,23,42,.05),0 4px 14px rgba(29,78,216,.06);
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer}
+header.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);padding:calc(env(safe-area-inset-top,0px) + 10px) 16px 10px}
+.top-in{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:10px}
+.logo{width:34px;height:34px;border-radius:10px;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:700;font-size:15px}
+.top h1{font-size:16px;margin:0;line-height:1.2}
+.top small{color:var(--muted);font-size:12.5px}
+main{max-width:860px;margin:0 auto;padding:16px 16px calc(96px + var(--safe-b))}
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:30;background:#fff;border-top:1px solid var(--line);
+  display:flex;justify-content:center;padding:6px 4px calc(6px + var(--safe-b))}
+nav.tabs .in{display:flex;max-width:860px;width:100%}
+nav.tabs button{flex:1;background:none;border:0;padding:6px 2px;border-radius:10px;color:var(--muted);
+  font-size:11.5px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:52px}
+nav.tabs button svg{width:22px;height:22px}
+nav.tabs button.on{color:var(--blue);font-weight:600}
+@media(min-width:900px){
+  nav.tabs{position:sticky;top:57px;bottom:auto;border:0;border-bottom:1px solid var(--line);padding:4px}
+  nav.tabs button{flex-direction:row;justify-content:center;gap:8px;font-size:14px;min-height:44px}
+  main{padding-bottom:40px}
+}
+h2{font-size:20px;margin:4px 0 12px}
+h3{font-size:16px;margin:18px 0 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.card+.card{margin-top:12px}
+.muted{color:var(--muted)}
+.grid{display:grid;gap:10px}
+.g2{grid-template-columns:repeat(2,1fr)}
+@media(min-width:640px){.g4{grid-template-columns:repeat(4,1fr)}}
+.g4{grid-template-columns:repeat(2,1fr)}
+.stat{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.stat b{display:block;font-size:24px;line-height:1.2;color:var(--blue);font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:48px;padding:10px 18px;border-radius:12px;
+  border:1px solid var(--blue);background:var(--blue);color:#fff;font-weight:600;font-size:15.5px}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:#fff;color:var(--blue);border-color:var(--blue-200)}
+.btn.soft{background:var(--blue-50);color:var(--blue);border-color:var(--blue-100)}
+.btn.danger{background:#fff;color:var(--bad);border-color:#fecaca}
+.btn.ok{background:var(--ok);border-color:var(--ok)}
+.btn.bad{background:var(--bad);border-color:var(--bad)}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.btn.block{width:100%}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row>.btn{flex:1}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:14px;min-height:40px}
+.chip.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.bar{height:8px;background:var(--blue-100);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--blue);border-radius:99px;transition:width .3s}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13.5px;color:var(--muted);margin-bottom:8px}
+.tag{display:inline-block;font-size:12px;padding:3px 9px;border-radius:99px;background:var(--blue-50);color:var(--blue);font-weight:600}
+.tag.warn{background:var(--warn-bg);color:var(--warn)}
+.qtext{font-size:17.5px;font-weight:600;line-height:1.45;margin:10px 0 14px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;background:#fff;border:1.5px solid var(--line);
+  border-radius:12px;padding:13px 14px;min-height:54px;font-size:16px;line-height:1.4}
+.opt .k{flex:none;width:28px;height:28px;border-radius:8px;background:var(--blue-50);color:var(--blue);display:grid;place-items:center;font-weight:700;font-size:14px}
+.opt:hover{border-color:var(--blue-200)}
+.opt.sel{border-color:var(--blue);background:var(--blue-50)}
+.opt.sel .k{background:var(--blue);color:#fff}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.right .k{background:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt.wrong .k{background:var(--bad);color:#fff}
+.opt[disabled]{cursor:default}
+.fb{margin-top:14px;border-radius:12px;padding:12px 14px;font-size:15px}
+.fb.ok{background:var(--ok-bg);border:1px solid #a7f3d0}
+.fb.bad{background:var(--bad-bg);border:1px solid #fecaca}
+.fb b.t{display:block;margin-bottom:4px}
+.flag{margin-top:10px;background:var(--warn-bg);border:1px solid #fde68a;color:#78350f;border-radius:12px;padding:10px 12px;font-size:14px}
+.nav3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
+.nav3 .btn{padding:10px 6px;font-size:15px}
+select,input[type=number]{font:inherit;min-height:46px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;background:#fff;width:100%}
+label.f{display:block;font-size:13.5px;color:var(--muted);margin:12px 0 6px}
+.timer{font-variant-numeric:tabular-nums;font-weight:700;color:var(--blue);background:var(--blue-50);padding:6px 12px;border-radius:10px}
+.timer.low{color:var(--bad);background:var(--bad-bg)}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(42px,1fr));gap:6px}
+.qgrid button{min-height:42px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:14px;font-variant-numeric:tabular-nums}
+.qgrid button.ans{background:var(--blue-100);border-color:var(--blue-200)}
+.qgrid button.cur{outline:2px solid var(--blue)}
+.qgrid button.r{background:var(--ok-bg);border-color:#a7f3d0;color:var(--ok)}
+.qgrid button.w{background:var(--bad-bg);border-color:#fecaca;color:var(--bad)}
+.qgrid button.s{background:#f1f5f9;color:var(--muted)}
+/* flashcard */
+.fc-wrap{perspective:1200px}
+.fc{position:relative;width:100%;min-height:340px;transition:transform .55s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d;cursor:pointer}
+.fc.flip{transform:rotateY(180deg)}
+.fc .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;padding:22px 20px;
+  display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);overflow:auto}
+.fc .back{transform:rotateY(180deg);background:linear-gradient(180deg,#fff, var(--blue-50))}
+.fc .face .lbl{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.fc .front .q{font-size:18px;font-weight:600;margin:auto 0;line-height:1.45}
+.fc .back .ans{font-size:20px;font-weight:700;color:var(--blue);margin:12px 0 10px}
+.fc .hint{font-size:13px;color:var(--muted);text-align:center;margin-top:12px}
+.list .it{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.list .it:last-child{border-bottom:0}
+.list .it .q{font-size:14.5px}
+.pill{font-size:12.5px;font-weight:700;border-radius:99px;padding:3px 10px;white-space:nowrap}
+.pill.bad{background:var(--bad-bg);color:var(--bad)} .pill.ok{background:var(--ok-bg);color:var(--ok)}
+.topicrow{margin:10px 0}
+.topicrow .lab{display:flex;justify-content:space-between;font-size:14px;margin-bottom:5px}
+.empty{text-align:center;padding:28px 10px;color:var(--muted)}
+.score{font-size:44px;font-weight:800;color:var(--blue);line-height:1;font-variant-numeric:tabular-nums}
+table.h{width:100%;border-collapse:collapse;font-size:14px}
+table.h th,table.h td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left}
+table.h th{color:var(--muted);font-weight:600;font-size:12.5px}
+.toast{position:fixed;left:50%;bottom:calc(90px + var(--safe-b));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-size:14px;z-index:99;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.show{opacity:1}
+.sec-title{display:flex;justify-content:space-between;align-items:center}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="logo">KST</div>
+  <div><h1>Ôn thi Ký sinh trùng & Vi nấm (Thầy Thạnh)</h1><small id="subtitle">47 câu · 2 chủ đề</small></div>
+</div></header>
+<nav class="tabs"><div class="in" id="tabs"><button class="on" onclick="go('home')" aria-label="Tổng quan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"></path></svg><span>Tổng quan</span></button><button class="" onclick="go('prac')" aria-label="Luyện tập"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"></path><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"></path></svg><span>Luyện tập</span></button><button class="" onclick="go('exam')" aria-label="Thi thử"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2M9 2h6"></path></svg><span>Thi thử</span></button><button class="" onclick="go('card')" aria-label="Flashcard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="14" height="14" rx="2"></rect><path d="M7 2h12a2 2 0 0 1 2 2v12"></path></svg><span>Flashcard</span></button><button class="" onclick="go('wrong')" aria-label="Câu sai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><path d="M3 3v5h5"></path></svg><span>Câu sai</span></button></div></nav>
+<main id="app">
+  <h2>Tổng quan</h2>
+  <div class="card">
+    <div class="sec-title"><b>Tiến độ học tập</b><span class="muted">0/110 câu</span></div>
+    <div class="bar" style="margin-top:10px"><i style="width:0%"></i></div>
+  </div>
+  <div class="grid g4" style="margin-top:12px">
+    <div class="stat"><b>110</b><span>Tổng số câu</span></div>
+    <div class="stat"><b>0</b><span>Đã học</span></div>
+    <div class="stat"><b>0%</b><span>Tỷ lệ đúng (0/0 lượt)</span></div>
+    <div class="stat"><b style="color:var(--bad)">0</b><span>Câu sai cần ôn</span></div>
+    <div class="stat"><b style="color:var(--ok)">0</b><span>Thẻ đã nhớ</span></div>
+    <div class="stat"><b style="color:var(--warn)">0</b><span>Thẻ chưa nhớ</span></div>
+    <div class="stat"><b>0</b><span>Lần thi thử</span></div>
+    <div class="stat"><b>–</b><span>Điểm thi cao nhất</span></div>
+  </div>
+
+  <h3>Theo chủ đề</h3>
+  <div class="card">
+  
+    <div class="topicrow">
+      <div class="lab"><span>Đại cương ký sinh trùng</span><span class="muted">0/32</span></div>
+      <div class="bar"><i style="width:0%"></i></div>
+    </div>
+    <div class="topicrow">
+      <div class="lab"><span>Ký sinh trùng sốt rét (Plasmodium)</span><span class="muted">0/18</span></div>
+      <div class="bar"><i style="width:0%"></i></div>
+    </div>
+    <div class="topicrow">
+      <div class="lab"><span>Giun đũa (Ascaris lumbricoides)</span><span class="muted">0/22</span></div>
+      <div class="bar"><i style="width:0%"></i></div>
+    </div>
+    <div class="topicrow">
+      <div class="lab"><span>Giun tóc (Trichuris trichiura)</span><span class="muted">0/17</span></div>
+      <div class="bar"><i style="width:0%"></i></div>
+    </div>
+    <div class="topicrow">
+      <div class="lab"><span>Giun móc/mỏ (A. duodenale – N. americanus)</span><span class="muted">0/10</span></div>
+      <div class="bar"><i style="width:0%"></i></div>
+    </div>
+    <div class="topicrow">
+      <div class="lab"><span>Giun kim (Enterobius vermicularis)</span><span class="muted">0/11</span></div>
+      <div class="bar"><i style="width:0%"></i></div>
+    </div>
+  </div>
+
+  <h3>Chủ đề yếu nhất</h3>
+  <div class="card"><div class="muted">Chưa đủ dữ liệu — hãy trả lời ít nhất 3 câu mỗi chủ đề.</div></div>
+
+  <h3>Lịch sử thi thử</h3>
+  <div class="card"><div class="muted">Chưa có bài thi nào.</div></div>
+
+  <h3>Câu cần kiểm tra lại</h3><div class="card"><div class="muted" style="font-size:14px;margin-bottom:6px">Những câu dưới đây giữ nguyên đáp án theo đề cương, nhưng có thể khác với một số giáo trình — nên đối chiếu với giảng viên.</div><div class="list"><div class="it"><span class="q"><b>Câu 24:</b> Nhiều giáo trình chỉ ghi F. buski có MỘT ký chủ trung gian (ốc); thực vật thủy sinh chỉ là giá thể mang nang trùng. Ví dụ kinh điển cho “hai ký chủ trung gian” thường là sán lá gan nhỏ Clonorchis sinensis (ốc + cá). Nên đối chiếu lại với giảng viên/giáo trình.</span></div><div class="it"><span class="q"><b>Câu 97:</b> Nhiều tài liệu ghi khoảng 5–7 TUẦN (A. duodenale đôi khi kéo dài nhiều tháng do ấu trùng tạm ngừng phát triển). Có thể đề cương ghi “5 tháng” thay vì “5 tuần” — nên hỏi lại giảng viên đáp án được chấm.</span></div></div></div>
+
+  <h3>Dữ liệu</h3>
+  <div class="card">
+    <div class="row">
+      <button class="btn ghost" onclick="exportCSV()">Xuất kết quả (CSV)</button>
+      <button class="btn ghost" onclick="exportJSON()">Sao lưu (JSON)</button>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn ghost" onclick="$('#imp').click()">Khôi phục từ file</button>
+      <button class="btn danger" onclick="resetAll()">Xoá toàn bộ tiến độ</button>
+    </div>
+    <input type="file" id="imp" accept=".json,application/json" style="display:none" onchange="importJSON(this)">
+    <div class="muted" style="font-size:13px;margin-top:10px">Tiến độ được lưu trên trình duyệt của thiết bị này (LocalStorage). Dùng “Sao lưu” để chuyển sang máy khác.</div>
+  </div></main>
+<div class="toast" id="toast"></div>
+<script>
+
+// Ngân hàng câu hỏi — Ký sinh trùng (Sán lá & Giun) + Vi nấm học (Thầy Thạnh)
+// a = đáp án đúng, d = 3 phương án nhiễu, e = giải thích ngắn.
+// Thứ tự đáp án được đảo ngẫu nhiên khi hiển thị.
+const TOPICS = {
+  sl: "Sán lá & Giun (Ký sinh trùng)",
+  vn: "Vi nấm học"
+};
+
+const QUESTIONS = [{"id": 1, "t": "sl", "q": "Đường lây nhiễm của Sán lá lớn ở gan (Fasciola hepatica) là:", "a": "Tiêu hóa", "d": ["Hô hấp", "Muỗi chích", "Chui qua da"], "e": "Sán lá gan lớn lây qua đường tiêu hóa khi ăn phải ấu trùng nang (metacercaria) trên rau mọc dưới nước."}, {"id": 2, "t": "sl", "q": "Thức ăn lây nhiễm của Sán lá lớn ở gan (Fasciola hepatica) là:", "a": "Rau mọc dưới nước", "d": ["Cá nước ngọt", "Tôm, cua", "Rau sống"], "e": "Ấu trùng nang bám trên thực vật thủy sinh (rau mọc dưới nước)."}, {"id": 3, "t": "sl", "q": "Giai đoạn sinh sản lây nhiễm của Sán lá lớn ở gan (Fasciola hepatica) là:", "a": "Ấu trùng", "d": ["Trứng chứa phôi bào", "Trứng chứa phôi", "Sán trưởng thành"], "e": "Giai đoạn lây nhiễm là ấu trùng nang (metacercaria)."}, {"id": 4, "t": "sl", "q": "Nơi ký sinh của Sán lá lớn ở gan (Fasciola hepatica) là: (1) Tim; (2) Gan; (3) Ruột; (4) Ống mật; (5) Phổi.", "a": "(2); (4)", "d": ["(1); (2)", "(2); (3)", "(3); (5)"], "e": "Ký sinh chủ yếu ở gan và ống mật."}, {"id": 5, "t": "sl", "q": "Mẫu xét nghiệm trực tiếp chẩn đoán bệnh Sán lá lớn ở gan (Fasciola sp.) là:", "a": "Phân", "d": ["Đờm", "Máu", "Nước tiểu"], "e": "Tìm trứng trong phân."}, {"id": 6, "t": "sl", "q": "Giai đoạn sinh sản phát hiện trong mẫu xét nghiệm trực tiếp của Sán lá lớn ở gan (Fasciola hepatica) là:", "a": "Trứng chứa phôi bào", "d": ["Trứng chứa phôi", "Ấu trùng", "Sán trưởng thành"], "e": "Trứng Fasciola trong phân chưa có phôi (phôi bào)."}, {"id": 7, "t": "sl", "q": "Chu trình phát triển của Sán lá lớn ở gan (Fasciola hepatica) thuộc loại:", "a": "Gián tiếp qua 2 KCTG", "d": ["Trực tiếp, ngắn", "Trực tiếp, dài", "Gián tiếp qua 3 KCTG"], "e": "Gián tiếp qua 2 ký chủ trung gian (ốc + thực vật thủy sinh mang nang)."}, {"id": 8, "t": "sl", "q": "Giun sán gây hiện tượng tắc ruột ở bệnh nhân khi nhiễm với số lượng nhiều là: (1) Ascaris lumbricoides (Giun đũa); (2) Fasciola hepatica (Sán lá gan lớn); (3) Fasciolopsis buski (Sán lá ruột); (4) Taenia solium (Sán dải heo); (5) Enterobius vermicularis (Giun kim).", "a": "(1), (3)", "d": ["(1), (2)", "(2), (4)", "(3), (5)"], "e": "Giun đũa và sán lá ruột có thể gây tắc ruột khi số lượng nhiều."}, {"id": 9, "t": "sl", "q": "Loài giun, sán ký sinh ở ruột nhưng xét nghiệm công thức máu BCTT của bệnh nhân vẫn tăng là:", "a": "Necator americanus (Giun móc)", "d": ["Trichuris trichiura (Giun tóc)", "Enterobius vermicularis (Giun kim)", "Fasciolopsis buski (Sán lá ruột)"], "e": "Giun móc gây mất máu mạn tính → bạch cầu ái toan tăng (và thiếu máu)."}, {"id": 10, "t": "sl", "q": "Đường lây nhiễm của Sán lá nhỏ ở gan (Clonorchis sinensis) là:", "a": "Tiêu hóa", "d": ["Hô hấp", "Muỗi chích", "Chui qua da"], "e": "Lây qua ăn cá nước ngọt chưa chín chứa ấu trùng nang."}, {"id": 11, "t": "sl", "q": "Thức ăn lây nhiễm của Sán lá nhỏ ở gan (Clonorchis sinensis) là:", "a": "Cá nước ngọt", "d": ["Rau mọc dưới nước", "Tôm, cua", "Rau sống"], "e": "Cá nước ngọt là ký chủ trung gian thứ 2."}, {"id": 12, "t": "sl", "q": "Giai đoạn sinh sản lây nhiễm của Sán lá nhỏ ở gan (Clonorchis sinensis) là:", "a": "Ấu trùng", "d": ["Trứng chứa phôi bào", "Trứng chứa phôi", "Sán trưởng thành"], "e": "Ấu trùng nang (metacercaria) trong cá."}, {"id": 13, "t": "sl", "q": "Nơi ký sinh của Sán lá nhỏ ở gan (Clonorchis sinensis) là: (1) Tim; (2) Gan; (3) Ruột; (4) Ống mật; (5) Phổi.", "a": "(2); (4)", "d": ["(1); (2)", "(2); (3)", "(3); (5)"], "e": "Gan và ống mật."}, {"id": 14, "t": "sl", "q": "Mẫu xét nghiệm trực tiếp chẩn đoán bệnh Sán lá nhỏ ở gan (Clonorchis sinensis) là:", "a": "Phân", "d": ["Đờm", "Máu", "Nước tiểu"], "e": "Tìm trứng trong phân."}, {"id": 15, "t": "sl", "q": "Giai đoạn sinh sản phát hiện trong mẫu xét nghiệm trực tiếp của Sán lá nhỏ ở gan (Clonorchis sinensis) là:", "a": "Trứng chứa phôi", "d": ["Trứng chứa phôi bào", "Ấu trùng", "Sán trưởng thành"], "e": "Trứng Clonorchis đã có phôi khi thải ra."}, {"id": 16, "t": "sl", "q": "Chu trình phát triển của Sán lá nhỏ ở gan (Clonorchis sinensis) thuộc loại:", "a": "Gián tiếp qua 2 KC", "d": ["Trực tiếp, ngắn", "Trực tiếp, dài", "Gián tiếp qua 3 KC"], "e": "Gián tiếp qua 2 ký chủ trung gian (ốc + cá)."}, {"id": 17, "t": "sl", "q": "Đường lây nhiễm của Sán lá phổi (Paragonimus westermani) là:", "a": "Tiêu hóa", "d": ["Hô hấp", "Muỗi chích", "Chui qua da"], "e": "Ăn tôm/cua nước ngọt chưa chín."}, {"id": 18, "t": "sl", "q": "Thức ăn lây nhiễm của Sán lá phổi (Paragonimus westermani) là:", "a": "Tôm, cua", "d": ["Cá nước ngọt", "Rau mọc dưới nước", "Rau sống"], "e": "Tôm, cua nước ngọt mang ấu trùng nang."}, {"id": 19, "t": "sl", "q": "Giai đoạn sinh sản lây nhiễm của Sán lá phổi (Paragonimus westermani) là:", "a": "Ấu trùng", "d": ["Trứng chứa phôi bào", "Trứng chứa phôi", "Sán trưởng thành"], "e": "Ấu trùng nang."}, {"id": 20, "t": "sl", "q": "Nơi ký sinh của Sán lá phổi (Paragonimus westermani) là:", "a": "Phổi", "d": ["Tim", "Gan", "Ruột"], "e": "Ký sinh ở phổi."}, {"id": 21, "t": "sl", "q": "Mẫu xét nghiệm trực tiếp chẩn đoán bệnh Sán lá phổi (Paragonimus westermani) là:", "a": "Đờm", "d": ["Phân", "Máu", "Nước tiểu"], "e": "Tìm trứng trong đờm (hoặc phân nếu nuốt đờm)."}, {"id": 22, "t": "sl", "q": "Giai đoạn sinh sản phát hiện trong mẫu xét nghiệm trực tiếp của Sán lá phổi (Paragonimus westermani) là:", "a": "Trứng chứa phôi bào", "d": ["Trứng chứa phôi", "Ấu trùng", "Sán trưởng thành"], "e": "Trứng trong đờm chưa có phôi."}, {"id": 23, "t": "sl", "q": "Chu trình phát triển của Sán lá phổi (Paragonimus westermani) thuộc loại:", "a": "Gián tiếp qua 2 KC", "d": ["Trực tiếp, ngắn", "Trực tiếp, dài", "Gián tiếp qua 3 KC"], "e": "Gián tiếp qua 2 ký chủ trung gian (ốc + tôm/cua)."}, {"id": 24, "t": "sl", "q": "Khi bị nhiễm loài sán nào sau đây sẽ làm thay đổi cấu trúc tế bào ở phổi gây nhầm với bệnh ung thư phổi?", "a": "Paragonimus westermani (Sán lá phổi)", "d": ["Fasciola hepatica (Sán lá gan lớn)", "Fasciolopsis buski (Sán lá ruột)", "Clonorchis sinensis (Sán lá gan nhỏ)"], "e": "Sán lá phổi có thể gây tổn thương mô phổi dễ nhầm ung thư."}, {"id": 25, "t": "sl", "q": "Giun sán có mẫu xét nghiệm trực tiếp khác với các loài còn lại là:", "a": "Paragonimus westermani (Sán lá phổi)", "d": ["Clonorchis sinensis (sán lá gan nhỏ)", "Fasciolopsis buski (sán lá ruột)", "Fasciola hepatica (sán lá gan lớn)"], "e": "Sán lá phổi xét nghiệm đờm, các loài còn lại xét nghiệm phân."}, {"id": 26, "t": "vn", "q": "Vi nấm thuộc nhóm nấm men là: (1) Candida albicans; (2) Malassezia furfur; (3) Aspergillus sp.; (4) Trichophyton mentagrophytes; (5) Fusarium sp..", "a": "(1), (2)", "d": ["(1), (3)", "(2), (4)", "(2), (5)"], "e": "Candida và Malassezia là nấm men."}, {"id": 27, "t": "vn", "q": "Môi trường nuôi cấy Candida albicans cho dạng bào tử bao dày, sợi tơ nấm giả là: (1) PCB; (2) Huyết thanh; (3) Sabouraud; (4) Czapek; (5) Thạch bột ngô – Tween 80", "a": "(1), (5)", "d": ["(1), (2)", "(2), (3)", "(3), (4)"], "e": "PCB và thạch bột ngô–Tween 80 kích thích tạo chlamydospore và sợi tơ giả."}, {"id": 28, "t": "vn", "q": "Hình ảnh của Candida albicans khi nuôi cấy trên môi trường Sabouraud là:", "a": "Tế bào hạt men", "d": ["Bào tử bao dày", "Ống mầm", "Sợi tơ nấm giả"], "e": "Trên Sabouraud chủ yếu thấy tế bào men."}, {"id": 29, "t": "vn", "q": "Hình ảnh của Candida albicans khi nuôi cấy trên môi trường huyết thanh là:", "a": "Ống mầm", "d": ["Tế bào hạt men", "Bào tử bao dày", "Sợi tơ nấm giả"], "e": "Test ống mầm (germ tube) trong huyết thanh."}, {"id": 30, "t": "vn", "q": "Candida sp. thuộc nhóm:", "a": "Trường hợp khác", "d": ["Nội ký sinh trùng", "Ngoại ký sinh trùng", "Nội và ngoại ký sinh trùng"], "e": "Candida là nấm cơ hội, không xếp vào ký sinh trùng theo nghĩa cổ điển."}, {"id": 31, "t": "vn", "q": "Chọn các yếu tố phù hợp với Candida albicans:", "a": "Nội hoại sinh, cơ hội", "d": ["Ngoại hoại sinh", "Nội hoại sinh", "Cơ hội"], "e": "Nội hoại sinh và gây bệnh cơ hội."}, {"id": 32, "t": "vn", "q": "Nguồn gây bệnh chính của Candida sp. là:", "a": "Nội hoại sinh", "d": ["Ngoại hoại sinh", "Thượng hoại sinh", "Ký sinh"], "e": "Thường từ hệ vi sinh nội sinh của cơ thể."}, {"id": 33, "t": "vn", "q": "Hình ảnh nấm có thể thấy ở mẫu bệnh phẩm nhiễm Candida albicans là:", "a": "Sợi tơ nấm và bào tử đốt", "d": ["Sợi tơ nấm giả và tế bào hạt men nảy chồi", "Sợi tơ nấm không vách ngăn, phân nhánh 90 độ", "Sợi tơ nấm không vách ngăn, phân nhánh 45 độ"], "e": "Theo đề: đáp án D. (Lưu ý: nhiều tài liệu mô tả Candida là sợi tơ giả + tế bào men nảy chồi)."}, {"id": 34, "t": "vn", "q": "Thời gian nuôi cấy Candida sp. là:", "a": "3 – 5 ngày", "d": ["2 ngày", "7 – 10 ngày", "2 – 7 ngày"], "e": "Thường 3–5 ngày trên Sabouraud."}, {"id": 35, "t": "vn", "q": "Candida sp. không gây bệnh ở vị trí nào trên cơ thể người?", "a": "Tóc", "d": ["Da", "Móng", "Niêm mạc"], "e": "Candida không xâm nhập thân tóc như dermatophyte."}, {"id": 36, "t": "vn", "q": "Vi nấm thuộc nhóm nấm sợi là: (1) Candida albicans; (2) Microsporum sp.; (3) Aspergillus sp.; (4) Trichophyton sp.; (5) Fusarium sp..", "a": "(2), (4)", "d": ["(1), (2)", "(1), (3)", "(2), (5)"], "e": "Microsporum và Trichophyton là dermatophyte (nấm sợi)."}, {"id": 37, "t": "vn", "q": "Microsporum sp. thuộc nhóm:", "a": "Nội và ngoại ký sinh trùng", "d": ["Nội ký sinh trùng", "Ngoại ký sinh trùng", "Trường hợp khác"], "e": "Có thể lây từ người hoặc động vật (nội/ngoại)."}, {"id": 38, "t": "vn", "q": "Thời gian nuôi cấy Trichophyton sp. là:", "a": "7 – 10 ngày", "d": ["2 ngày", "3 – 5 ngày", "2 – 7 ngày"], "e": "Dermatophyte thường chậm hơn, 7–14 ngày."}, {"id": 39, "t": "vn", "q": "Hình ảnh của Trichophyton sp. có thể thấy trong mẫu bệnh phẩm khi quan sát trực tiếp là:", "a": "Sợi tơ nấm có vách ngăn, bào tử đốt", "d": ["Sợi tơ nấm giả, tế bào hạt men", "Sợi tơ nấm có vách ngăn, phân nhánh 45 độ", "Sợi tơ nấm có vách ngăn, phân nhánh 90 độ"], "e": "Hyphae vách ngăn + arthroconidia (bào tử đốt)."}, {"id": 40, "t": "vn", "q": "Hình ảnh của Microsporum sp. có thể thấy trong mẫu bệnh phẩm khi quan sát trực tiếp là:", "a": "Sợi tơ nấm có vách ngăn, bào tử đốt", "d": ["Sợi tơ nấm có vách ngăn, phân nhánh 45 độ", "Sợi tơ nấm có vách ngăn, phân nhánh 90 độ", "Sợi tơ nấm giả, tế bào hạt men"], "e": "Tương tự dermatophyte: hyphae + arthroconidia."}, {"id": 41, "t": "vn", "q": "Hình ảnh của Aspergillus sp. có thể thấy trong bệnh phẩm khi quan sát trực tiếp?", "a": "Sợi tơ nấm không màu, có vách ngăn, phân nhánh 45 độ", "d": ["Sợi tơ nấm có màu, có vách ngăn, phân nhánh 45 độ", "Sợi tơ nấm có màu, không vách ngăn, phân nhánh 45 độ", "Sợi tơ nấm màu, không vách ngăn, phân nhánh 45 độ"], "e": "Aspergillus: hyaline, septate, branching 45°."}, {"id": 42, "t": "vn", "q": "Chọn thời gian nuôi cấy phù hợp cho Aspergillus sp.?", "a": "3 – 7 ngày", "d": ["2 ngày", "1 – 2 ngày", "7 – 28 ngày"], "e": "Thường mọc trong 3–7 ngày."}, {"id": 43, "t": "vn", "q": "Loài nấm thuộc chi Aspergillus có đặc thù sản sinh nhiều Aflatoxin?", "a": "Aspergillus flavus", "d": ["Aspergillus fumigatus", "Aspergillus niger", "Aspergillus terreus"], "e": "A. flavus là nguồn aflatoxin chính."}, {"id": 44, "t": "vn", "q": "Chọn thời gian nuôi cấy phù hợp cho Fusarium sp.?", "a": "3 – 7 ngày", "d": ["2 ngày", "7 – 28 ngày", "2 – 28 ngày"], "e": "Fusarium mọc tương đối nhanh, khoảng 3–7 ngày."}, {"id": 45, "t": "vn", "q": "Hình ảnh nào của Fusarium sp. có thể thấy trong bệnh phẩm khi quan sát trực tiếp?", "a": "Sợi tơ nấm không màu, có vách ngăn, phân nhánh 45 độ", "d": ["Sợi tơ nấm có màu, có vách ngăn, phân nhánh 45 độ", "Sợi tơ nấm có màu, không vách ngăn, phân nhánh 45 độ", "Sợi tơ nấm màu, không vách ngăn, phân nhánh 45 độ"], "e": "Fusarium: hyaline, septate (giống Aspergillus trên tiêu bản trực tiếp)."}, {"id": 46, "t": "vn", "q": "Chọn thời gian nuôi cấy phù hợp cho Mucor sp.?", "a": "1 – 2 ngày", "d": ["3 – 7 ngày", "7 – 28 ngày", "14 ngày"], "e": "Mucorales mọc rất nhanh (1–2 ngày)."}, {"id": 47, "t": "vn", "q": "Hình ảnh nào của Mucor sp. có thể thấy trong bệnh phẩm khi quan sát trực tiếp?", "a": "Sợi tơ nấm không màu, không vách ngăn, phân nhánh 90 độ", "d": ["Sợi tơ nấm không màu, có vách ngăn, phân nhánh 90 độ", "Sợi tơ nấm có màu, có vách ngăn, phân nhánh 45 độ", "Sợi tơ nấm có màu, không vách ngăn, phân nhánh 45 độ"], "e": "Zygomycetes: aseptate (hoặc ít vách), branching rộng ~90°."}];
+
+</script>
+<script>
+"use strict";
+// ---------- tiện ích ----------
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pct = (a, b) => b ? Math.round(a * 100 / b) : 0;
+const QMAP = Object.fromEntries(QUESTIONS.map(q => [q.id, q]));
+const LETTERS = ["A","B","C","D"];
+function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.remove("show"),1800); }
+// Tạo 4 lựa chọn đã đảo ngẫu nhiên; trả về {opts:[text], correct:index}
+function makeOptions(q){ const opts = shuffle([q.a, ...q.d]); return { opts, correct: opts.indexOf(q.a) }; }
+
+// ---------- lưu trữ ----------
+const KEY = "kst_vinam_thay_thanh_v1";
+let S;
+function blank(){ return { q:{}, exams:[], v:1 }; }
+function load(){ try { S = JSON.parse(localStorage.getItem(KEY)) || blank(); } catch(e){ S = blank(); } if(!S.q) S.q={}; if(!S.exams) S.exams=[]; }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+function st(id){ return S.q[id] || (S.q[id] = { n:0, c:0, w:0, wa:false, card:null, last:null }); }
+// ghi nhận 1 lần trả lời (luyện tập / thi / ôn câu sai)
+function record(id, ok){
+  const s = st(id); s.n++; s.last = ok ? 1 : 0;
+  if (ok) { s.c++; s.wa = false; } else { s.w++; s.wa = true; }
+  save();
+}
+load();
+
+// ---------- tính thống kê ----------
+function stats(){
+  let done=0, c=0, n=0, wrongActive=0, unknown=0, known=0;
+  const byT = {};
+  for (const k in TOPICS) byT[k] = { total:0, done:0, c:0, n:0 };
+  for (const q of QUESTIONS){
+    const s = S.q[q.id]; const t = byT[q.t]; t.total++;
+    if (!s) continue;
+    if (s.n > 0 || s.card) { done++; t.done++; }
+    c += s.c; n += s.n; t.c += s.c; t.n += s.n;
+    if (s.wa) wrongActive++;
+    if (s.card === "u") unknown++; if (s.card === "k") known++;
+  }
+  return { done, c, n, acc: pct(c,n), wrongActive, unknown, known, byT };
+}
+
+// ---------- điều hướng ----------
+const ICONS = {
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>',
+  prac:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>',
+  exam:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg>',
+  card:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="14" height="14" rx="2"/><path d="M7 2h12a2 2 0 0 1 2 2v12"/></svg>',
+  wrong:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>'
+};
+const TABS = [["home","Tổng quan"],["prac","Luyện tập"],["exam","Thi thử"],["card","Flashcard"],["wrong","Câu sai"]];
+let view = "home";
+let examTimer = null;
+function go(v){
+  if (view === "exam" && E && E.running && v !== "exam") { if(!confirm("Bạn đang làm bài thi. Rời đi sẽ huỷ bài thi này?")) return; stopExam(); E=null; }
+  view = v; renderTabs(); render(); window.scrollTo(0,0);
+}
+function renderTabs(){
+  $("#tabs").innerHTML = TABS.map(([k,l]) => {
+    let badge = "";
+    if (k==="wrong"){ const n = stats().wrongActive; if(n) badge = ` (${n})`; }
+    return `<button class="${view===k?'on':''}" onclick="go('${k}')" aria-label="${l}">${ICONS[k]}<span>${l}${badge}</span></button>`;
+  }).join("");
+}
+function render(){
+  const f = { home:renderHome, prac:renderPrac, exam:renderExam, card:renderCard, wrong:renderWrong }[view];
+  $("#app").innerHTML = f(); if (f.after) f.after();
+}
+function topicChips(sel, fn){
+  return `<div class="chips"><button class="chip ${sel==='all'?'on':''}" onclick="${fn}('all')">Tất cả</button>` +
+    Object.entries(TOPICS).map(([k,v]) => `<button class="chip ${sel===k?'on':''}" onclick="${fn}('${k}')">${esc(v.split(" (")[0])}</button>`).join("") + `</div>`;
+}
+function topicName(t){ return TOPICS[t]; }
+
+// ================= TỔNG QUAN =================
+function renderHome(){
+  const s = stats(); const total = QUESTIONS.length;
+  const weak = Object.entries(s.byT).filter(([,t]) => t.n >= 3).map(([k,t]) => ({ k, acc: pct(t.c,t.n), n:t.n })).sort((a,b) => a.acc-b.acc).slice(0,3);
+  const flagged = QUESTIONS.filter(q => q.f);
+  return `
+  <h2>Tổng quan</h2>
+  <div class="card">
+    <div class="sec-title"><b>Tiến độ học tập</b><span class="muted">${s.done}/${total} câu</span></div>
+    <div class="bar" style="margin-top:10px"><i style="width:${pct(s.done,total)}%"></i></div>
+  </div>
+  <div class="grid g4" style="margin-top:12px">
+    <div class="stat"><b>${total}</b><span>Tổng số câu</span></div>
+    <div class="stat"><b>${s.done}</b><span>Đã học</span></div>
+    <div class="stat"><b>${s.acc}%</b><span>Tỷ lệ đúng (${s.c}/${s.n} lượt)</span></div>
+    <div class="stat"><b style="color:var(--bad)">${s.wrongActive}</b><span>Câu sai cần ôn</span></div>
+    <div class="stat"><b style="color:var(--ok)">${s.known}</b><span>Thẻ đã nhớ</span></div>
+    <div class="stat"><b style="color:var(--warn)">${s.unknown}</b><span>Thẻ chưa nhớ</span></div>
+    <div class="stat"><b>${S.exams.length}</b><span>Lần thi thử</span></div>
+    <div class="stat"><b>${S.exams.length ? Math.max(...S.exams.map(e=>e.score)).toFixed(1) : "–"}</b><span>Điểm thi cao nhất</span></div>
+  </div>
+
+  <h3>Theo chủ đề</h3>
+  <div class="card">
+  ${Object.entries(s.byT).map(([k,t]) => `
+    <div class="topicrow">
+      <div class="lab"><span>${esc(TOPICS[k])}</span><span class="muted">${t.done}/${t.total}${t.n?` · ${pct(t.c,t.n)}% đúng`:''}</span></div>
+      <div class="bar"><i style="width:${pct(t.done,t.total)}%"></i></div>
+    </div>`).join("")}
+  </div>
+
+  <h3>Chủ đề yếu nhất</h3>
+  <div class="card">${weak.length ? weak.map(w => `<div class="list"><div class="it"><span class="q">${esc(TOPICS[w.k])}</span><span class="pill ${w.acc<70?'bad':'ok'}">${w.acc}% đúng</span></div></div>`).join("") + `<div class="row" style="margin-top:10px"><button class="btn soft" onclick="P.topic='${weak[0].k}';P.list=null;go('prac')">Luyện chủ đề yếu nhất</button></div>` : `<div class="muted">Chưa đủ dữ liệu — hãy trả lời ít nhất 3 câu mỗi chủ đề.</div>`}</div>
+
+  <h3>Lịch sử thi thử</h3>
+  <div class="card">${S.exams.length ? `<table class="h"><tr><th>Ngày</th><th>Số câu</th><th>Điểm /10</th><th>Đúng</th><th>Thời gian</th></tr>${S.exams.slice().reverse().slice(0,15).map(e=>`<tr><td>${new Date(e.date).toLocaleString("vi-VN",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</td><td>${e.total}${e.src==='wrong'?' (câu sai)':''}</td><td><b>${e.score.toFixed(1)}</b></td><td>${e.correct}/${e.total}</td><td>${fmtTime(e.used)}</td></tr>`).join("")}</table>` : `<div class="muted">Chưa có bài thi nào.</div>`}</div>
+
+  ${flagged.length ? `<h3>Câu cần kiểm tra lại</h3><div class="card"><div class="muted" style="font-size:14px;margin-bottom:6px">Những câu dưới đây giữ nguyên đáp án theo đề cương, nhưng có thể khác với một số giáo trình — nên đối chiếu với giảng viên.</div><div class="list">${flagged.map(q=>`<div class="it"><span class="q"><b>Câu ${q.id}:</b> ${esc(q.f)}</span></div>`).join("")}</div></div>` : ""}
+
+  <h3>Dữ liệu</h3>
+  <div class="card">
+    <div class="row">
+      <button class="btn ghost" onclick="exportCSV()">Xuất kết quả (CSV)</button>
+      <button class="btn ghost" onclick="exportJSON()">Sao lưu (JSON)</button>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn ghost" onclick="$('#imp').click()">Khôi phục từ file</button>
+      <button class="btn danger" onclick="resetAll()">Xoá toàn bộ tiến độ</button>
+    </div>
+    <input type="file" id="imp" accept=".json,application/json" style="display:none" onchange="importJSON(this)">
+    <div class="muted" style="font-size:13px;margin-top:10px">Tiến độ được lưu trên trình duyệt của thiết bị này (LocalStorage). Dùng “Sao lưu” để chuyển sang máy khác.</div>
+  </div>`;
+}
+function fmtTime(s){ s = Math.max(0, Math.round(s||0)); const m = Math.floor(s/60), x = s%60; return `${m}:${String(x).padStart(2,"0")}`; }
+function download(name, text, type){
+  const blob = new Blob([text], { type }); const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+function exportCSV(){
+  const s = stats(); const q = v => `"${String(v).replace(/"/g,'""')}"`;
+  let out = "﻿KẾT QUẢ ÔN TẬP KÝ SINH TRÙNG Y HỌC\nXuất lúc," + q(new Date().toLocaleString("vi-VN")) + "\n";
+  out += `Đã học,${s.done}/${QUESTIONS.length}\nTỷ lệ đúng,${s.acc}%\nCâu sai cần ôn,${s.wrongActive}\n\n`;
+  out += "Câu,Chủ đề,Câu hỏi,Đáp án đúng,Số lần làm,Số lần đúng,Số lần sai,Còn trong danh sách sai,Flashcard\n";
+  for (const x of QUESTIONS){ const t = S.q[x.id] || {}; out += [x.id, q(TOPICS[x.t]), q(x.q), q(x.a), t.n||0, t.c||0, t.w||0, t.wa?"Có":"", t.card==="k"?"Đã nhớ":t.card==="u"?"Chưa nhớ":""].join(",") + "\n"; }
+  out += "\nLỊCH SỬ THI THỬ\nNgày,Số câu,Điểm /10,Đúng,Sai,Bỏ trống,Thời gian\n";
+  for (const e of S.exams) out += [q(new Date(e.date).toLocaleString("vi-VN")), e.total, e.score.toFixed(2), e.correct, e.wrong, e.blank, fmtTime(e.used)].join(",") + "\n";
+  download("ket-qua-on-tap-KST.csv", out, "text/csv;charset=utf-8"); toast("Đã xuất file CSV");
+}
+function exportJSON(){ download("sao-luu-KST.json", JSON.stringify(S), "application/json"); toast("Đã tạo file sao lưu"); }
+function importJSON(inp){
+  const f = inp.files[0]; if (!f) return; const r = new FileReader();
+  r.onload = () => { try { const d = JSON.parse(r.result); if (!d.q || !d.exams) throw 0; S = d; save(); render(); renderTabs(); toast("Đã khôi phục tiến độ"); } catch(e){ alert("File không hợp lệ."); } };
+  r.readAsText(f);
+}
+function resetAll(){ if (!confirm("Xoá toàn bộ tiến độ, câu sai, flashcard và lịch sử thi?")) return; S = blank(); save(); P.list=null; F.queue=null; render(); renderTabs(); toast("Đã làm mới tiến độ"); }
+
+// ================= LUYỆN TẬP =================
+// P: trạng thái phiên luyện tập. list = mảng {id, o:{opts,correct}, pick:null|index}
+const P = { topic:"all", order:"seq", list:null, i:0, src:"all" };
+function buildPractice(){
+  let ids = QUESTIONS.filter(q => P.topic==="all" || q.t===P.topic).map(q => q.id);
+  if (P.order === "rand") ids = shuffle(ids);
+  if (P.order === "new") ids = ids.filter(id => !(S.q[id] && S.q[id].n));
+  P.list = ids.map(id => ({ id, o: makeOptions(QMAP[id]), pick: null })); P.i = 0;
+}
+function setPTopic(t){ P.topic = t; P.list = null; render(); }
+function setPOrder(o){ P.order = o; P.list = null; render(); }
+function renderPrac(){
+  if (!P.list) buildPractice();
+  const head = `<h2>Luyện tập</h2>
+    ${topicChips(P.topic, "setPTopic")}
+    <div class="chips" style="margin:10px 0 14px">
+      <button class="chip ${P.order==='seq'?'on':''}" onclick="setPOrder('seq')">Theo thứ tự</button>
+      <button class="chip ${P.order==='rand'?'on':''}" onclick="setPOrder('rand')">Ngẫu nhiên</button>
+      <button class="chip ${P.order==='new'?'on':''}" onclick="setPOrder('new')">Chưa làm</button>
+    </div>`;
+  if (!P.list.length) return head + `<div class="card empty">Không còn câu nào trong mục này 🎉</div>`;
+  return head + questionCard(P, "pracPick", "pracNav", false);
+}
+function questionCard(ctx, pickFn, navFn, wrongMode){
+  const it = ctx.list[ctx.i]; const q = QMAP[it.id]; const answered = it.pick !== null;
+  const s = S.q[q.id];
+  const opts = it.o.opts.map((t, k) => {
+    let cls = "";
+    if (answered){ if (k === it.o.correct) cls = "right"; else if (k === it.pick) cls = "wrong"; }
+    return `<button class="opt ${cls}" ${answered?"disabled":""} onclick="${pickFn}(${k})"><span class="k">${LETTERS[k]}</span><span>${esc(t)}</span></button>`;
+  }).join("");
+  let fb = "";
+  if (answered){
+    const ok = it.pick === it.o.correct;
+    fb = `<div class="fb ${ok?'ok':'bad'}"><b class="t">${ok?"✓ Chính xác!":"✗ Chưa đúng"}</b>${ok?"":`Đáp án đúng: <b>${LETTERS[it.o.correct]}. ${esc(q.a)}</b><br>`}<span>${esc(q.e)}</span></div>`;
+    if (q.f) fb += `<div class="flag">⚠ <b>Cần kiểm tra:</b> ${esc(q.f)}</div>`;
+  }
+  const done = ctx.list.filter(x => x.pick !== null).length;
+  return `<div class="card">
+    <div class="qhead"><span>Câu ${ctx.i+1}/${ctx.list.length} · <b>#${q.id}</b></span><span>${s&&s.w?`<span class="pill bad">Sai ${s.w} lần</span>`:""}</span></div>
+    <div class="bar"><i style="width:${pct(done,ctx.list.length)}%"></i></div>
+    <div style="margin-top:12px"><span class="tag">${esc(topicName(q.t))}</span> ${q.f?'<span class="tag warn">⚠ Cần kiểm tra</span>':''}</div>
+    <div class="qtext">${esc(q.q)}</div>
+    <div class="opts">${opts}</div>
+    ${fb}
+    <div class="nav3">
+      <button class="btn ghost" ${ctx.i===0?"disabled":""} onclick="${navFn}(-1)">‹ Trước</button>
+      <button class="btn soft" ${answered||ctx.i>=ctx.list.length-1?"disabled":""} onclick="${navFn}(1)">Bỏ qua</button>
+      <button class="btn" ${ctx.i>=ctx.list.length-1?"disabled":""} onclick="${navFn}(1)">Tiếp ›</button>
+    </div>
+    <div class="muted" style="text-align:center;font-size:13px;margin-top:10px">Đã trả lời ${done}/${ctx.list.length} · Đúng ${ctx.list.filter(x=>x.pick!==null&&x.pick===x.o.correct).length}</div>
+  </div>`;
+}
+function pracPick(k){ const it = P.list[P.i]; if (it.pick !== null) return; it.pick = k; record(it.id, k === it.o.correct); render(); renderTabs(); }
+function pracNav(d){ P.i = Math.max(0, Math.min(P.list.length-1, P.i + d)); render(); window.scrollTo(0,0); }
+
+// ================= THI THỬ =================
+let E = null; // {list:[{id,o,pick}], i, total, dur, end, running, submitted, src}
+const EX = { n:30, perQ:60, topic:"all" };
+function renderExam(){
+  if (E && E.submitted) return examResult();
+  if (E && E.running) return examRun();
+  const avail = QUESTIONS.filter(q => EX.topic==="all" || q.t===EX.topic).length;
+  return `<h2>Thi thử</h2>
+  <div class="card">
+    <label class="f">Số câu</label>
+    <div class="chips">${[30,50,110].map(n=>`<button class="chip ${EX.n===n?'on':''}" onclick="EX.n=${n};render()">${n} câu</button>`).join("")}</div>
+    <label class="f">Thời gian mỗi câu</label>
+    <div class="chips">${[[45,"45 giây"],[60,"1 phút"],[90,"1,5 phút"]].map(([v,l])=>`<button class="chip ${EX.perQ===v?'on':''}" onclick="EX.perQ=${v};render()">${l}</button>`).join("")}</div>
+    <label class="f">Phạm vi</label>
+    ${topicChips(EX.topic, "setExTopic")}
+    <div class="muted" style="margin:14px 0;font-size:14.5px">Đề gồm <b>${Math.min(EX.n,avail)}</b> câu, thời gian <b>${fmtTime(Math.min(EX.n,avail)*EX.perQ)}</b>. Câu hỏi và đáp án được đảo ngẫu nhiên; không hiển thị đáp án khi đang thi; tự động nộp khi hết giờ.</div>
+    <button class="btn block" onclick="startExam()">Bắt đầu thi</button>
+  </div>`;
+}
+function setExTopic(t){ EX.topic = t; render(); }
+function startExam(ids, src){
+  if (!ids){ ids = shuffle(QUESTIONS.filter(q => EX.topic==="all" || q.t===EX.topic).map(q=>q.id)).slice(0, EX.n); }
+  else ids = shuffle(ids);
+  const total = ids.length; const dur = total * EX.perQ;
+  E = { list: ids.map(id => ({ id, o: makeOptions(QMAP[id]), pick: null })), i:0, total, dur, start: Date.now(), end: Date.now() + dur*1000, running:true, submitted:false, src: src||"bank" };
+  view = "exam"; renderTabs(); render(); window.scrollTo(0,0);
+  stopExam(); examTimer = setInterval(tick, 500);
+}
+function stopExam(){ if (examTimer) { clearInterval(examTimer); examTimer = null; } }
+function tick(){
+  if (!E || !E.running) return stopExam();
+  const left = Math.max(0, (E.end - Date.now())/1000);
+  const el = $("#timer"); if (el){ el.textContent = "⏱ " + fmtTime(left); el.classList.toggle("low", left < 60); }
+  if (left <= 0){ submitExam(true); }
+}
+function examRun(){
+  const it = E.list[E.i]; const q = QMAP[it.id]; const left = Math.max(0, (E.end - Date.now())/1000);
+  const answered = E.list.filter(x => x.pick !== null).length;
+  return `<div class="sec-title" style="margin-bottom:10px"><h2 style="margin:0">Đang thi</h2><span id="timer" class="timer ${left<60?'low':''}">⏱ ${fmtTime(left)}</span></div>
+  <div class="card">
+    <div class="qhead"><span>Câu ${E.i+1}/${E.total}</span><span>Đã làm ${answered}/${E.total}</span></div>
+    <div class="bar"><i style="width:${pct(answered,E.total)}%"></i></div>
+    <div class="qtext">${esc(q.q)}</div>
+    <div class="opts">${it.o.opts.map((t,k)=>`<button class="opt ${it.pick===k?'sel':''}" onclick="examPick(${k})"><span class="k">${LETTERS[k]}</span><span>${esc(t)}</span></button>`).join("")}</div>
+    <div class="nav3">
+      <button class="btn ghost" ${E.i===0?"disabled":""} onclick="examNav(-1)">‹ Trước</button>
+      <button class="btn soft" ${it.pick===null?"disabled":""} onclick="examPick(null)">Bỏ chọn</button>
+      <button class="btn" ${E.i>=E.total-1?"disabled":""} onclick="examNav(1)">Tiếp ›</button>
+    </div>
+  </div>
+  <div class="card"><div class="muted" style="font-size:13.5px;margin-bottom:8px">Chuyển nhanh đến câu</div>
+    <div class="qgrid">${E.list.map((x,k)=>`<button class="${x.pick!==null?'ans':''} ${k===E.i?'cur':''}" onclick="examJump(${k})">${k+1}</button>`).join("")}</div>
+    <button class="btn block" style="margin-top:14px" onclick="submitExam(false)">Nộp bài</button>
+  </div>`;
+}
+function examPick(k){ E.list[E.i].pick = k; if (k !== null && E.i < E.total-1) { E.i++; } render(); }
+function examNav(d){ E.i = Math.max(0, Math.min(E.total-1, E.i+d)); render(); window.scrollTo(0,0); }
+function examJump(k){ E.i = k; render(); window.scrollTo(0,0); }
+function submitExam(auto){
+  if (!E || !E.running) return;
+  if (!auto){ const blankN = E.list.filter(x=>x.pick===null).length; if (!confirm(blankN ? `Còn ${blankN} câu chưa làm. Nộp bài?` : "Nộp bài?")) return; }
+  stopExam(); E.running = false; E.submitted = true;
+  let c=0,w=0,b=0;
+  for (const x of E.list){
+    if (x.pick === null){ b++; const s = st(x.id); s.wa = true; s.last = 0; } // bỏ trống: đưa vào danh sách ôn, không tính lần sai
+    else if (x.pick === x.o.correct){ c++; record(x.id, true); }
+    else { w++; record(x.id, false); }
+  }
+  const used = Math.min(E.dur, (Date.now() - E.start)/1000);
+  E.res = { c, w, b, score: c*10/E.total, used };
+  S.exams.push({ date: Date.now(), total: E.total, correct:c, wrong:w, blank:b, score: c*10/E.total, used, src: E.src });
+  save(); E.i = 0; E.rf = "all";
+  if (auto) toast("Hết giờ — đã tự động nộp bài");
+  view = "exam"; renderTabs(); render(); window.scrollTo(0,0);
+}
+function examResult(){
+  const r = E.res;
+  const list = E.list.map((x,k)=>({x,k})).filter(({x}) => E.rf==="all" || (E.rf==="w" && x.pick!==null && x.pick!==x.o.correct) || (E.rf==="b" && x.pick===null) || (E.rf==="r" && x.pick===x.o.correct));
+  return `<h2>Kết quả thi thử</h2>
+  <div class="card" style="text-align:center">
+    <div class="score">${r.score.toFixed(1)}<span style="font-size:20px;color:var(--muted)">/10</span></div>
+    <div class="muted" style="margin-top:6px">Tỷ lệ đúng ${pct(r.c,E.total)}% · Thời gian ${fmtTime(r.used)}</div>
+    <div class="grid g4" style="margin-top:14px;grid-template-columns:repeat(3,1fr)">
+      <div class="stat"><b style="color:var(--ok)">${r.c}</b><span>Đúng</span></div>
+      <div class="stat"><b style="color:var(--bad)">${r.w}</b><span>Sai</span></div>
+      <div class="stat"><b style="color:var(--muted)">${r.b}</b><span>Bỏ trống</span></div>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn ghost" onclick="E=null;render()">Làm đề mới</button>
+      ${r.w+r.b ? `<button class="btn" onclick="go('wrong')">Ôn câu sai</button>` : ""}
+    </div>
+  </div>
+  <h3>Xem lại bài làm</h3>
+  <div class="chips" style="margin-bottom:10px">${[["all","Tất cả"],["w","Sai"],["b","Bỏ trống"],["r","Đúng"]].map(([k,l])=>`<button class="chip ${E.rf===k?'on':''}" onclick="E.rf='${k}';render()">${l}</button>`).join("")}</div>
+  ${list.length ? list.map(({x,k}) => reviewItem(x,k)).join("") : `<div class="card empty">Không có câu nào.</div>`}`;
+}
+function reviewItem(x, k){
+  const q = QMAP[x.id]; const st_ = x.pick===null ? "b" : x.pick===x.o.correct ? "r" : "w";
+  return `<div class="card">
+    <div class="qhead"><span>Câu ${k+1} · #${q.id}</span><span class="pill ${st_==='r'?'ok':'bad'}">${st_==='r'?'Đúng':st_==='w'?'Sai':'Bỏ trống'}</span></div>
+    <div class="qtext" style="font-size:16px;margin-top:4px">${esc(q.q)}</div>
+    <div class="opts">${x.o.opts.map((t,j)=>`<div class="opt ${j===x.o.correct?'right':(j===x.pick?'wrong':'')}"><span class="k">${LETTERS[j]}</span><span>${esc(t)}</span></div>`).join("")}</div>
+    <div class="fb ${st_==='r'?'ok':'bad'}">${esc(q.e)}</div>
+    ${q.f?`<div class="flag">⚠ <b>Cần kiểm tra:</b> ${esc(q.f)}</div>`:""}
+  </div>`;
+}
+
+// ================= FLASHCARD =================
+const F = { topic:"all", queue:null, i:0, flip:false, mode:"smart" };
+function buildCards(){
+  let qs = QUESTIONS.filter(q => F.topic==="all" || q.t===F.topic);
+  const rank = q => { const c = (S.q[q.id]||{}).card; return c==="u" ? 0 : c==null ? 1 : 2; };
+  if (F.mode === "smart") qs = shuffle(qs).sort((a,b) => rank(a)-rank(b));   // chưa nhớ → chưa học → đã nhớ
+  else if (F.mode === "unknown") qs = shuffle(qs.filter(q => (S.q[q.id]||{}).card==="u"));
+  else qs = qs.slice();
+  F.queue = qs.map(q => q.id); F.i = 0; F.flip = false;
+}
+function setFTopic(t){ F.topic = t; F.queue = null; render(); }
+function setFMode(m){ F.mode = m; F.queue = null; render(); }
+function renderCard(){
+  if (!F.queue) buildCards();
+  const s = stats();
+  const head = `<h2>Flashcard</h2>${topicChips(F.topic,"setFTopic")}
+  <div class="chips" style="margin:10px 0 14px">
+    <button class="chip ${F.mode==='smart'?'on':''}" onclick="setFMode('smart')">Ưu tiên chưa nhớ</button>
+    <button class="chip ${F.mode==='unknown'?'on':''}" onclick="setFMode('unknown')">Chỉ thẻ chưa nhớ (${s.unknown})</button>
+    <button class="chip ${F.mode==='seq'?'on':''}" onclick="setFMode('seq')">Theo thứ tự</button>
+  </div>`;
+  if (!F.queue.length) return head + `<div class="card empty">Không có thẻ nào trong mục này.</div>`;
+  if (F.i >= F.queue.length) return head + `<div class="card empty"><div style="font-size:36px">🎉</div><b>Hoàn thành lượt ôn!</b><div style="margin:6px 0 14px">Đã nhớ ${s.known} · Chưa nhớ ${s.unknown}</div><button class="btn" onclick="F.queue=null;render()">Ôn lượt mới</button></div>`;
+  const q = QMAP[F.queue[F.i]]; const c = (S.q[q.id]||{}).card;
+  return head + `
+  <div class="qhead"><span>Thẻ ${F.i+1}/${F.queue.length} · #${q.id}</span><span>${c==="k"?'<span class="pill ok">Đã nhớ</span>':c==="u"?'<span class="pill bad">Chưa nhớ</span>':''}</span></div>
+  <div class="bar" style="margin-bottom:12px"><i style="width:${pct(F.i,F.queue.length)}%"></i></div>
+  <div class="fc-wrap"><div class="fc ${F.flip?'flip':''}" id="fc" onclick="flipCard()">
+    <div class="face front"><div class="lbl">Câu hỏi · ${esc(TOPICS[q.t].split(" (")[0])}</div><div class="q">${esc(q.q)}</div><div class="hint">Chạm để lật thẻ</div></div>
+    <div class="face back"><div class="lbl">Đáp án</div><div class="ans">${esc(q.a)}</div><div style="font-size:15.5px">${esc(q.e)}</div>${q.f?`<div class="flag">⚠ ${esc(q.f)}</div>`:""}</div>
+  </div></div>
+  <div class="row" style="margin-top:14px">
+    <button class="btn bad" onclick="rateCard('u')">✗ Chưa nhớ</button>
+    <button class="btn ok" onclick="rateCard('k')">✓ Đã nhớ</button>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <button class="btn ghost" ${F.i===0?"disabled":""} onclick="F.i--;F.flip=false;render()">‹ Thẻ trước</button>
+    <button class="btn ghost" onclick="flipCard()">Lật thẻ</button>
+  </div>`;
+}
+renderCard.after = () => {
+  // điều chỉnh chiều cao thẻ theo mặt dài hơn
+  const fc = $("#fc"); if (!fc) return; let h = 340;
+  fc.querySelectorAll(".face").forEach(f => { f.style.position="relative"; h = Math.max(h, f.scrollHeight); f.style.position=""; });
+  fc.style.minHeight = h + "px";
+};
+function flipCard(){ F.flip = !F.flip; const fc = $("#fc"); if (fc) fc.classList.toggle("flip", F.flip); }
+function rateCard(v){
+  const id = F.queue[F.i]; st(id).card = v; save();
+  if (v === "u" && F.mode !== "seq"){ // đưa thẻ chưa nhớ quay lại cuối hàng (sau ~4 thẻ) để ôn lại
+    const pos = Math.min(F.queue.length, F.i + 5); F.queue.splice(pos, 0, id);
+  }
+  F.i++; F.flip = false; render(); renderTabs();
+}
+
+// ================= ÔN CÂU SAI =================
+const W = { list:null, i:0, running:false };
+function wrongIds(){ return QUESTIONS.filter(q => (S.q[q.id]||{}).wa).map(q => q.id); }
+function renderWrong(){
+  if (W.running) return renderWrongRun();
+  const ids = wrongIds();
+  const hist = QUESTIONS.filter(q => (S.q[q.id]||{}).w > 0).sort((a,b)=> S.q[b.id].w - S.q[a.id].w);
+  return `<h2>Ôn tập câu sai</h2>
+  <div class="card">
+    <div class="grid g2">
+      <div class="stat"><b style="color:var(--bad)">${ids.length}</b><span>Câu đang sai</span></div>
+      <div class="stat"><b>${hist.length}</b><span>Câu từng sai</span></div>
+    </div>
+    <div class="muted" style="font-size:14px;margin:12px 0">Câu trả lời sai (và câu bỏ trống khi thi) được tự động lưu. Làm lại đến khi trả lời đúng thì câu sẽ rời khỏi danh sách; số lần sai vẫn được ghi nhận.</div>
+    <div class="row">
+      <button class="btn" ${ids.length?"":"disabled"} onclick="startWrong()">Làm lại câu sai</button>
+      <button class="btn ghost" ${ids.length?"":"disabled"} onclick="startExam(wrongIds(),'wrong')">Tạo đề thi từ câu sai</button>
+    </div>
+  </div>
+  <h3>Theo dõi số lần sai</h3>
+  <div class="card">${hist.length ? `<div class="list">${hist.map(q => { const s=S.q[q.id]; return `<div class="it"><span class="q"><b>#${q.id}</b> ${esc(q.q.length>110?q.q.slice(0,110)+"…":q.q)}</span><span class="pill ${s.wa?'bad':'ok'}">${s.wa?'Sai':'Đã sửa'} · ${s.w}×</span></div>`; }).join("")}</div>` : `<div class="empty">Chưa có câu sai nào. Hãy luyện tập hoặc thi thử!</div>`}</div>`;
+}
+function startWrong(){ const ids = shuffle(wrongIds()); W.list = ids.map(id => ({ id, o: makeOptions(QMAP[id]), pick:null })); W.i = 0; W.running = true; render(); }
+function renderWrongRun(){
+  if (!W.list.length) { W.running=false; return renderWrong(); }
+  const left = W.list.filter(x => x.pick===null).length;
+  const head = `<div class="sec-title" style="margin-bottom:10px"><h2 style="margin:0">Làm lại câu sai</h2><button class="btn ghost" style="min-height:40px;padding:6px 14px" onclick="W.running=false;render()">Thoát</button></div>`;
+  if (W.i >= W.list.length) {
+    const still = wrongIds().length;
+    return head + `<div class="card empty"><div style="font-size:36px">${still?'💪':'🎉'}</div><b>${still?`Còn ${still} câu chưa đúng`:'Đã sửa hết câu sai!'}</b><div class="row" style="margin-top:14px">${still?`<button class="btn" onclick="startWrong()">Làm lại các câu còn sai</button>`:''}<button class="btn ghost" onclick="W.running=false;render()">Về danh sách</button></div></div>`;
+  }
+  return head + questionCard(W, "wrongPick", "wrongNav", true) + `<div class="muted" style="text-align:center;font-size:13px;margin-top:8px">Còn ${left} câu chưa trả lời trong lượt này</div>`;
+}
+function wrongPick(k){ const it = W.list[W.i]; if (it.pick!==null) return; it.pick = k; record(it.id, k===it.o.correct); render(); renderTabs(); }
+function wrongNav(d){ if (d>0 && W.i === W.list.length-1) { W.i++; } else W.i = Math.max(0, Math.min(W.list.length-1, W.i+d)); render(); window.scrollTo(0,0); }
+
+// Ghi đè nút "Tiếp" ở câu cuối của chế độ câu sai để hiện màn kết thúc
+const _qc = questionCard;
+questionCard = function(ctx, pickFn, navFn, wrongMode){
+  let h = _qc(ctx, pickFn, navFn, wrongMode);
+  if (wrongMode && ctx.i === ctx.list.length-1) h = h.replace(/<button class="btn" disabled onclick="wrongNav\(1\)">Tiếp ›<\/button>/, `<button class="btn" onclick="wrongNav(1)">Kết thúc ›</button>`);
+  return h;
+};
+
+// ---------- khởi động ----------
+$("#subtitle").textContent = `${QUESTIONS.length} câu · ${Object.keys(TOPICS).length} chủ đề`;
+renderTabs(); render();
+window.addEventListener("beforeunload", e => { if (E && E.running) { e.preventDefault(); e.returnValue = ""; } });
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+  const k = e.key.toUpperCase(); const idx = "ABCD".indexOf(k) >= 0 ? "ABCD".indexOf(k) : "1234".indexOf(e.key);
+  if (view==="card" && (e.key===" "||e.key==="Enter")) { e.preventDefault(); flipCard(); return; }
+  if (idx >= 0){
+    if (view==="prac" && P.list && P.list.length) pracPick(idx);
+    else if (view==="exam" && E && E.running) examPick(idx);
+    else if (view==="wrong" && W.running && W.i < W.list.length) wrongPick(idx);
+  }
+  if (e.key==="ArrowRight"){ if(view==="prac") pracNav(1); else if(view==="exam"&&E&&E.running) examNav(1); }
+  if (e.key==="ArrowLeft"){ if(view==="prac") pracNav(-1); else if(view==="exam"&&E&&E.running) examNav(-1); }
+});
+if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
+  navigator.serviceWorker.register("sw.js").catch(() => {});
+}
+</script>
+
+
+</body></html>
